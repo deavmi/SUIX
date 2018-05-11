@@ -12,7 +12,7 @@ public class Connection extends Thread {
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 		We will use this uniqeness provided by the hashcode.
 	*/
-	private String username = this.hashCode();
+	private String username = ""+this.hashCode();
 
 	public Connection(Socket sock) {
 		this.sock = sock;
