@@ -9,6 +9,10 @@ public class Connection extends Thread {
 	private InputStream inStream;
 	private OutputStream outStream;
 
+	//The channel we are currently in
+	private String channel = null;
+
+
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 		We will use this uniqeness provided by the hashcode.
 	*/
@@ -17,6 +21,36 @@ public class Connection extends Thread {
 	public Connection(Socket sock) {
 		this.sock = sock;
 		start();
+	}
+
+	//Join a channel
+	public void joinChannel(String channelname)
+	{
+		channel = channelname;
+	}
+
+	//Whether the user is joined to a channel or not
+	public boolean isJoinedChannel()
+	{
+		return channel != null;
+	}
+
+	public String getChannel()
+	{
+		return channel;
+	}
+
+	//Leave a channel
+	public void leaveChannel()
+	{
+		output("Leaving channel \"" + channel + "\"");
+		//WIP: Assigned to @deavmi
+		//Send a message to the current channel when leaving
+
+		//Leave the channel
+		channel = null;
+
+		output("Left channel \"" + channel + "\"");
 	}
 
 	public void setupStreams()
@@ -146,7 +180,8 @@ public class Connection extends Thread {
 		{
 			// Read from the client
 			command = readCommand();
-				//If there was an error whilst reading from the stream
+
+			//If there was an error whilst reading from the stream
 			if(command == null)
 			{
 				output("There was an error with the client, terminating...");
@@ -157,7 +192,7 @@ public class Connection extends Thread {
 			else
 			{
 				output("command recieved: \"" + command + "\"");
-					//If the command is to set the currently logged in user's username
+				//If the command is to set the currently logged in user's username
 				if(command.equals("SET_USERNAME"))
 				{
 					output("user attempting to change username");
@@ -168,7 +203,15 @@ public class Connection extends Thread {
 				//If the command is to join a channel
 				else if(command.equals("JOIN_CHANNEL"))
 				{
-				
+					//Set the current channel (and leave the other WIP)
+					String userRequestedChannel = readCommand();
+
+					output("Leaving channel \""+getChannel() + "\"");
+					leaveChannel(getChannel()); //make me do iets
+
+					output("Joining channel \"" + userRequestedChannel + "\"");
+					joinChannel(userRequestedChannel);
+					
 				}
 				else
 				{
@@ -179,7 +222,7 @@ public class Connection extends Thread {
 		output("Connection object thread ending");
 	}
 
-//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
+	//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
 	public void output(String message)
 	{
 		kak.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
