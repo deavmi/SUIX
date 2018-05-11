@@ -6,8 +6,7 @@ import java.net.Socket;
 public class server
 {
 
-	private static int MAX_SIZE = 200;
-	public static Connection[] connections = new Connection[MAX_SIZE];
+	public static Connection[] connections;
 
 	public static void main(String[] args)
 	{
@@ -19,7 +18,7 @@ public class server
 		{
 			try
 			{
-				startServer(Integer.parseInt(args[0]));
+				startServer(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
 			}
 			catch (NumberFormatException err)
 			{
@@ -28,9 +27,12 @@ public class server
 		}
 	}
 
-	public static void startServer(int port)
+	public static void startServer(int port, int max_user)
 	{
 		System.out.println("Starting server on port " + port + " ...");
+
+		connections= new Connection[max_user];
+
 		try
 		{
 			// The server socket
@@ -49,7 +51,7 @@ public class server
 				Connection connection = new Connection(clientSock);
 
 				connections[connectionCount++] = connection;
-				
+
 				System.out.println("Connection object created.");
 			}
 
