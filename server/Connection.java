@@ -70,6 +70,8 @@ public class Connection extends Thread {
 
 	public void run()
 	{
+//TODO: Add a welcome statement
+
 		output("New Connection object created");
 
 		// Setup the input and output streams
@@ -123,13 +125,25 @@ public class Connection extends Thread {
 						{
 
 						}
+						//Send a message to a given channel
 						else if(command.equals("SEND_MESSAGE"))
 						{
 
 						}
+						//Change the topic of a given channel
 						else if(command.equals("CHANGE_TOPIC"))
 						{
 
+						}
+						//Disconnect from the server
+						else if(command.equals("BYE"))
+						{
+
+						}
+						//Handle anything else
+						else
+						{
+							//TODO: work in progress
 						}
 
 
@@ -153,6 +167,7 @@ public class Connection extends Thread {
 		output("Connection object thread ending");
 	}
 
+//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
 	public void output(String message)
 	{
 		System.out.println("[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
