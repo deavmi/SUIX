@@ -9,14 +9,21 @@ public class Connection extends Thread {
 	private InputStream inStream;
 	private OutputStream outStream;
 
+	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
+		We will use this uniqeness provided by the hashcode.
+	*/
+	private String username = this.hashCode();
+
 	public Connection(Socket sock) {
 		this.sock = sock;
 		start();
 	}
 
-	public void setupStreams() {
+	public void setupStreams()
+	{
 		output("Setting up streams...");
-		try {
+		try
+		{
 			output("Setting up input stream...");
 			inStream = sock.getInputStream();
 			output("Input stream has been setup.");
@@ -24,26 +31,34 @@ public class Connection extends Thread {
 			output("Setting up output stream...");
 			outStream = sock.getOutputStream();
 			output("Output stream has been setup.");
-		} catch (IOException err) {
+		}
+		catch (IOException err)
+		{
 			output("Error setting up stream: " + err.getMessage());
 		}
 		output("Streams setup.");
 	}
 
 	// Is the byte a Linefeed
-	public boolean isLineFeed(byte charCode) {
-		if (charCode == 10) {
+	public boolean isLineFeed(byte charCode)
+	{
+		if (charCode == 10)
+		{
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
 
 	// Encode a message with a trailing linefeed as our delimiter
-	public byte[] encode(String message) {
+	public byte[] encode(String message)
+	{
 		byte[] characterBytes = new byte[message.length() + 1];
 
-		for (int i = 0; i < message.length(); i++) {
+		for (int i = 0; i < message.length(); i++)
+		{
 			characterBytes[i] = (byte) message.charAt(i);
 		}
 
@@ -53,7 +68,8 @@ public class Connection extends Thread {
 		return characterBytes;
 	}
 
-	public void run() {
+	public void run()
+	{
 		output("New Connection object created");
 
 		// Setup the input and output streams
@@ -90,7 +106,7 @@ public class Connection extends Thread {
 						//Set the username of the connected user
 						if(command.equals("SET_USERNAME"))
 						{
-
+								output("User is requesting to set a username");
 						}
 						//Join an existing channel
 						else if(command.equals("JOIN_CHANNEL"))
@@ -137,9 +153,9 @@ public class Connection extends Thread {
 		output("Connection object thread ending");
 	}
 
-	public void output(String message) {
-		System.out.println("[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: "
-				+ sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
+	public void output(String message)
+	{
+		System.out.println("[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}
 
 }
