@@ -18,6 +18,13 @@ public class Connection extends Thread {
 	*/
 	private String username = ""+this.hashCode();
 
+	public void setUsername(String username)
+	{
+		output("User attempting to change username");
+		this.username = username;
+		output("Username has been updated from \"" + this.username + "\" to \"" + username + "\"");
+	}
+
 	public Connection(Socket sock) {
 		this.sock = sock;
 		start();
@@ -195,10 +202,8 @@ public class Connection extends Thread {
 				//If the command is to set the currently logged in user's username
 				if(command.equals("SET_USERNAME"))
 				{
-					output("user attempting to change username");
 					String newUsername = readCommand();
-					output("Username has been updated from \"" + username + "\" to \"" + newUsername + "\"");
-					username = newUsername;
+					setUsername(newUsername);
 				}
 				//If the command is to join a channel
 				else if(command.equals("JOIN_CHANNEL"))
@@ -207,7 +212,7 @@ public class Connection extends Thread {
 					String userRequestedChannel = readCommand();
 
 					output("Leaving channel \""+getChannel() + "\"");
-					leaveChannel(getChannel()); //make me do iets
+					leaveChannel(); //make me do iets
 
 					output("Joining channel \"" + userRequestedChannel + "\"");
 					joinChannel(userRequestedChannel);
