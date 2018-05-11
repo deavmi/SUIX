@@ -68,14 +68,20 @@ public class Connection extends Thread {
 		return characterBytes;
 	}
 
+	public void setup()
+	{
+		// Setup the input and output streams
+		setupStreams();
+	}
+
 	public void run()
 	{
 //TODO: Add a welcome statement
 
 		output("New Connection object created");
 
-		// Setup the input and output streams
-		setupStreams();
+		//Run setup routines
+		setup();
 
 		try
 		{
