@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.net.Socket;
+
 public class libsuix
 {
   //Connect to the remote host and return a connection object or `null` if failed
