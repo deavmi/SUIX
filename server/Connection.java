@@ -141,11 +141,31 @@ catch(IOException err)
 				// Read from the client
 				command = readCommand();
 
+				//If there was an error whilst reading from the stream
 				if(command == null)
 				{
 					output("There was an error with the client, terminating...");
 					running = false;
 					continue;
+				}
+				//Else, we continue interpreting the commands
+				else
+				{
+					output("command recieved: \"" + command + "\"");
+
+					//If the command is to set the currently logged in user's username
+					if(command.equals("SET_USERNAME"))
+					{
+						output("user attempting to change username");
+						String newUsername = readCommand();
+						output("Username has been updated from \"" + username + "\" to \"" + newUsername + "\"");
+						username = newUsername;
+					}
+					//If the command is to join a channel
+					else if(command.equals("JOIN_CHANNEL"))
+					{
+						
+					}
 				}
 			}
 
