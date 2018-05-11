@@ -14,15 +14,14 @@ public class Connection extends Thread {
 
 
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
-		We will use this uniqeness provided by the hashcode.
-	*/
+	We will use this uniqeness provided by the hashcode.*/
 	private String username = ""+this.hashCode();
 
 	public void setUsername(String username)
 	{
 		output("User attempting to change username");
-		this.username = username;
 		output("Username has been updated from \"" + this.username + "\" to \"" + username + "\"");
+		this.username = username;
 	}
 
 	public Connection(Socket sock) {
@@ -44,9 +43,24 @@ public class Connection extends Thread {
 		return channel != null;
 	}
 
+	//Get the current channel
 	public String getChannel()
 	{
 		return channel;
+	}
+
+	//Send a message to the current channel
+	public void sendMessage(String message)
+	{
+		//
+	}
+
+	//Lists all the channels on this server
+	public String[] listChannels()
+	{
+		String[] channels = null;
+		//Work in progress @deavmi
+		return channels;
 	}
 
 	//Leave a channel
@@ -213,12 +227,21 @@ public class Connection extends Thread {
 					//Set the current channel (and leave the other WIP)
 					String userRequestedChannel = readCommand();
 
-					output("Leaving channel \""+getChannel() + "\"");
-					leaveChannel(); //make me do iets
+					//Leave the current channel
+					leaveChannel();
 
-					
+					//Join the requested channel
 					joinChannel(userRequestedChannel);
-					
+				}
+				else if(command.equals("LEAVE_CHANNEL"))
+				{
+					//Leave the current channel
+					leaveChannel();
+				}
+				else if(command.equals("SEND_MESSAGE"))
+				{
+					String message = readCommand();
+					sendMessage(message);
 				}
 				else
 				{
@@ -232,7 +255,7 @@ public class Connection extends Thread {
 	//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
 	public void output(String message)
 	{
-		kak.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
+		PrettyPrint.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}
 
 }

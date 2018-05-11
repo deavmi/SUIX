@@ -5,7 +5,7 @@ public class suixd
 	{
 		if (args.length < 2)
 		{
-			kak.out("suixd","Needs a port number argument and a max user number argument");
+			PrettyPrint.out("suixd","Needs a port number argument and a max user number argument");
 		}
 		else
 		{
@@ -15,7 +15,7 @@ public class suixd
 			}
 			catch (NumberFormatException err)
 			{
-				kak.out("suixd","A valid port number and max user number is required");
+				PrettyPrint.out("suixd","A valid port number and max user number is required");
 			}
 		}
 	}

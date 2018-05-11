@@ -10,7 +10,7 @@ public static Connection[] connections;
 
   public static void startServer(int port, int max_user)
   {
-	kak.out("server", "Starting server on port " + port + " ...");
+	PrettyPrint.out("server", "Starting server on port " + port + " ...");
 
     connections= new Connection[max_user];
 
@@ -22,24 +22,24 @@ public static Connection[] connections;
       int connectionCount = 0;
       while (true)
       {
-        kak.out("server", "Waiting for a connection...");
+        PrettyPrint.out("server", "Waiting for a connection...");
 
         // Incoming client socket
         Socket clientSock = servSock.accept();
 
-        kak.out("server", "Connection received, setting up data structures...");
+        PrettyPrint.out("server", "Connection received, setting up data structures...");
 
         Connection connection = new Connection(clientSock);
 
         connections[connectionCount++] = connection;
 
-        kak.out("server", "Connection object created.");
+        PrettyPrint.out("server", "Connection object created.");
       }
 
     }
     catch (IOException err)
     {
-      kak.out("server", "There was an error with the server socket.");
+      PrettyPrint.out("server", "There was an error with the server socket.");
 
     }
   }
