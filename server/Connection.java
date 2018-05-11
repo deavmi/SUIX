@@ -74,17 +74,52 @@ public class Connection extends Thread {
 		setupStreams();
 	}
 
-	//Get the command sent from the host
+	//Get the command sent from the host (returns `null` on error (when an IOException occurs)
 	public String readCommand()
 	{
 		String message = "";
-
+try
+{
 		boolean awaitingLineFeed = true;
 		while(awaitingLineFeed)
 		{
-			//WIP
-		}
+			// Read from client
+			int byteRep = inStream.read();
 
+			//check -1
+			if(byteRep == -1) //look into me @assigned to deavmi
+			{
+				//error here
+			}
+			//Read an actual byte
+			else			
+			{
+				// The actual byte
+				byte theByte = (byte)byteRep;
+
+				//Linefeed flush out
+				if(theByte == 10)
+				{
+					//Command recieved
+					output("Data received \"" + message+"\"");
+
+					//We are now done and can return the message
+					awaitingLineFeed = false;
+				}
+				//If not a linefeed then append to the `message` String
+				else
+				{
+					message = message + (char)(  (byte)theByte );
+				}
+
+			}
+		}
+}
+catch(IOException err)
+{
+	//On error set `message` to `null`
+	message = null;
+}
 		return message;
 	}
 
@@ -97,92 +132,22 @@ public class Connection extends Thread {
 		//Run setup routines
 		setup();
 
-		try
-		{
+		
 			String command = "";
 
 			boolean running = true;
 			while (running)
 			{
-				// Read from client
-				int byteRep = inStream.read();
+				// Read from the client
+				command = readCommand();
 
-				//check -1
-				if(byteRep == -1)
+				if(command == null)
 				{
-					//error here
+					output("There was an error with the client, terminating...");
+					running = false;
+					continue;
 				}
-				//Read an actual byte
-				else
-				{
-					byte theByte = (byte)byteRep;
-
-					//Linefeed flush out
-					if(theByte == 10)
-					{
-						//Command recieved
-						output("Command received \"" + command+"\"");
-
-						//Run the command
-
-						//Set the username of the connected user
-						if(command.equals("SET_USERNAME"))
-						{
-								output("User is requesting to set a username");
-						}
-						//Join an existing channel
-						else if(command.equals("JOIN_CHANNEL"))
-						{
-
-						}
-						//Creates a new channel
-						else if(command.equals("CREATE_CHANNEL"))
-						{
-
-						}
-						//Leaves the channel
-						else if(command.equals("LEAVE_CHANNEL"))
-						{
-
-						}
-						//Send a message to a given channel
-						else if(command.equals("SEND_MESSAGE"))
-						{
-
-						}
-						//Change the topic of a given channel
-						else if(command.equals("CHANGE_TOPIC"))
-						{
-
-						}
-						//Disconnect from the server
-						else if(command.equals("BYE"))
-						{
-
-						}
-						//Handle anything else
-						else
-						{
-							//TODO: work in progress
-						}
-
-
-						//Flush out
-						command = "";
-					}
-					//Append to `command` string
-					else
-					{
-						command = command + (char)(  (byte)theByte );
-					}
-				}
-
 			}
-		}
-		catch (IOException err)
-		{
-			output("Error with client: " + err.getMessage());
-		}
 
 		output("Connection object thread ending");
 	}
