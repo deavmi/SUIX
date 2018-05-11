@@ -31,9 +31,11 @@ public class Connection extends Thread {
 	}
 
 	//Join a channel
-	public void joinChannel(String channelname)
+	public void joinChannel(String channelName)
 	{
-		channel = channelname;
+		output("Joining channel \"" + channelName + "\"");
+		channel = channelName;
+		output("Joined channel \"" + channelName + "\"");
 	}
 
 	//Whether the user is joined to a channel or not
@@ -214,7 +216,7 @@ public class Connection extends Thread {
 					output("Leaving channel \""+getChannel() + "\"");
 					leaveChannel(); //make me do iets
 
-					output("Joining channel \"" + userRequestedChannel + "\"");
+					
 					joinChannel(userRequestedChannel);
 					
 				}
