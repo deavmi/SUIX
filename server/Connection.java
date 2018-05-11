@@ -175,7 +175,7 @@ catch(IOException err)
 //Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
 	public void output(String message)
 	{
-		System.out.println("[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
+		kak.out("Connection","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}
 
 }
