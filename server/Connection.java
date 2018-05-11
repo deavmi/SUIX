@@ -74,6 +74,20 @@ public class Connection extends Thread {
 		setupStreams();
 	}
 
+	//Get the command sent from the host
+	public String readCommand()
+	{
+		String message = "";
+
+		boolean awaitingLineFeed = true;
+		while(awaitingLineFeed)
+		{
+			//WIP
+		}
+
+		return message;
+	}
+
 	public void run()
 	{
 //TODO: Add a welcome statement
