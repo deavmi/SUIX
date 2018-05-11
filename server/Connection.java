@@ -78,54 +78,61 @@ public class Connection extends Thread {
 	public String readCommand()
 	{
 		String message = "";
-try
-{
-		boolean awaitingLineFeed = true;
-		while(awaitingLineFeed)
+		try
 		{
-			// Read from client
-			int byteRep = inStream.read();
-
-			//check -1
-			if(byteRep == -1) //look into me @assigned to deavmi
+			boolean awaitingLineFeed = true;
+			while(awaitingLineFeed)
 			{
-				//error here
-			}
-			//Read an actual byte
-			else			
-			{
-				// The actual byte
-				byte theByte = (byte)byteRep;
-
-				//Linefeed flush out
-				if(theByte == 10)
+				// Read from client
+				int byteRep = inStream.read();
+	
+				//check -1
+				if(byteRep == -1) //look into me @assigned to deavmi
 				{
-					//Command recieved
-					output("Data received \"" + message+"\"");
-
-					//We are now done and can return the message
-					awaitingLineFeed = false;
+					//error here
 				}
-				//If not a linefeed then append to the `message` String
-				else
+				//Read an actual byte
+				else			
 				{
-					message = message + (char)(  (byte)theByte );
+					// The actual byte
+					byte theByte = (byte)byteRep;
+	
+					//Linefeed flush out
+					if(theByte == 10)
+					{
+						//Command recieved
+						output("Data received \"" + message+"\"");
+	
+						//We are now done and can return the message
+						awaitingLineFeed = false;
+					}
+					//If not a linefeed then append to the `message` String
+					else
+					{
+						message = message + (char)(  theByte );
+					}
+	
 				}
-
 			}
 		}
-}
-catch(IOException err)
-{
-	//On error set `message` to `null`
-	message = null;
-}
+		catch(IOException err)
+		{
+			//On error set `message` to `null`
+			message = null;
+		}
+
 		return message;
 	}
 
+	public void writeCommand(String message)
+	{
+		//Just a stub, will implement soon
+	}
+
+
 	public void run()
 	{
-//TODO: Add a welcome statement
+		//TODO: Add a welcome statement
 
 		output("New Connection object created");
 
@@ -133,49 +140,49 @@ catch(IOException err)
 		setup();
 
 		
-			String command = "";
-
+		String command = "";
 			boolean running = true;
-			while (running)
-			{
-				// Read from the client
-				command = readCommand();
-
+		while (running)
+		{
+			// Read from the client
+			command = readCommand();
 				//If there was an error whilst reading from the stream
-				if(command == null)
+			if(command == null)
+			{
+				output("There was an error with the client, terminating...");
+				running = false;
+				continue;
+			}
+			//Else, we continue interpreting the commands
+			else
+			{
+				output("command recieved: \"" + command + "\"");
+					//If the command is to set the currently logged in user's username
+				if(command.equals("SET_USERNAME"))
 				{
-					output("There was an error with the client, terminating...");
-					running = false;
-					continue;
+					output("user attempting to change username");
+					String newUsername = readCommand();
+					output("Username has been updated from \"" + username + "\" to \"" + newUsername + "\"");
+					username = newUsername;
 				}
-				//Else, we continue interpreting the commands
+				//If the command is to join a channel
+				else if(command.equals("JOIN_CHANNEL"))
+				{
+				
+				}
 				else
 				{
-					output("command recieved: \"" + command + "\"");
-
-					//If the command is to set the currently logged in user's username
-					if(command.equals("SET_USERNAME"))
-					{
-						output("user attempting to change username");
-						String newUsername = readCommand();
-						output("Username has been updated from \"" + username + "\" to \"" + newUsername + "\"");
-						username = newUsername;
-					}
-					//If the command is to join a channel
-					else if(command.equals("JOIN_CHANNEL"))
-					{
-						
-					}
+					output("Invalid command \""+command + "\"");
 				}
 			}
-
+		}
 		output("Connection object thread ending");
 	}
 
 //Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
 	public void output(String message)
 	{
-		kak.out("Connection","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
+		kak.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}
 
 }
