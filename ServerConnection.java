@@ -52,7 +52,11 @@ public class ServerConnection extends Thread {
 	//Send a message to the current channel
 	public void sendMessage(String message)
 	{
-		//
+		
+		output("message : \"" + message+ "\"");
+
+		//we good?
+		IO.sendCommand(outStream, "MESSAGE_SENT");
 	}
 
 	//Lists all the channels on this server
@@ -154,6 +158,10 @@ public class ServerConnection extends Thread {
 					String newUsername = IO.readCommand(inStream);
 					setUsername(newUsername);
 				}
+				else if(command.equals("GET_USERNAME"))
+				{
+					IO.sendCommand(outStream, username);
+				}
 				//If the command is to join a channel
 				else if(command.equals("JOIN_CHANNEL"))
 				{
@@ -174,6 +182,7 @@ public class ServerConnection extends Thread {
 				else if(command.equals("SEND_MESSAGE"))
 				{
 					String message = IO.readCommand(inStream);
+					output("Ello naai: "+message);
 					sendMessage(message);
 				}
 				else
