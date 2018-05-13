@@ -11,12 +11,16 @@ public class suixy_chat
 			out("Trying to connect to server at " + IPAddress + " on port " + port + " ...");
 			Socket connection = new Socket(IPAddress, port);
 
+			//Setup input and output streams
+			InputStream inStream = socket.getInputStream();
+			OutputStream outSream = socket.getOutputStream();
 
 			String command = "";
 			boolean running = true;
 
-      //Set the connection
-      libsuix.connection = connection;
+			//Set the Streams
+			libsuix.outStream = outStream;
+			libsuix.inStream = inStream;
 
 			//Get the username
 			String username = libsuix.getUsername();
