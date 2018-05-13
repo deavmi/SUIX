@@ -11,7 +11,7 @@ public class suixy_chat
 		try
 		{
 			suixy.out("Trying to connect to server at " + IPAddress + " on port " + port + " ...");
-			Socket connection = new Socket(IPAddress, port);
+			Socket socket = new Socket(IPAddress, port);
 
 			//Setup input and output streams
 			InputStream inStream = socket.getInputStream();
