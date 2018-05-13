@@ -8,7 +8,7 @@ public class suixy_chat
 	{
 		try
 		{
-			out("Trying to connect to server at " + IPAddress + " on port " + port + " ...");
+			suixy.out("Trying to connect to server at " + IPAddress + " on port " + port + " ...");
 			Socket connection = new Socket(IPAddress, port);
 
 			//Setup input and output streams
