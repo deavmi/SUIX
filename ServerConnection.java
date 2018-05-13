@@ -52,9 +52,9 @@ public class ServerConnection extends Thread {
 	//Join a channel
 	public void joinChannel(Channel channel)
 	{
-		output("Joining channel \"" + channelName + "\"");
+		output("Joining channel \"" + channel.getChannelName() + "\"");
 		this.channel = channel;
-		output("Joined channel \"" + channelName + "\"");
+		output("Joined channel \"" + channel.getChannelName() + "\"");
 	}
 
 	//Whether the user is joined to a channel or not
