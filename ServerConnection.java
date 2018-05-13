@@ -64,7 +64,7 @@ public class ServerConnection extends Thread {
 	}
 
 	//Get the current channel
-	public String getChannel()
+	public Channel getChannel()
 	{
 		return channel;
 	}
