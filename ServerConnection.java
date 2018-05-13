@@ -214,7 +214,7 @@ public class ServerConnection extends Thread {
 
 					//Send the amount of channels to the user so he knows how many of
 					//my messages are channels
-					IO.sendCommand(outStream, channels.length);
+					IO.sendCommand(outStream, ""+channels.length);
 
 					//Now send the channel names to him
 					for(Channel channel: channels)
