@@ -19,8 +19,8 @@ public class ServerConnection extends Thread {
 
 
 
-	//The channel we are currently in
-	private String channel = null;
+	//The channel we are currently in (default: #welcome)
+	private Channel channel = new Channel("welcome", "default channel");
 
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 	We will use this uniqeness provided by the hashcode.*/
@@ -33,7 +33,11 @@ public class ServerConnection extends Thread {
 		return username;
 	}
 
-
+	public Channel[] listChannels()
+	{
+		Channel[] channels = null;
+		return channels;
+	}
 
 
 

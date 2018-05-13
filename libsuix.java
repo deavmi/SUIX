@@ -9,7 +9,8 @@ public class libsuix
   //Socket to the host server
   public static Socket connection;
 
-  //Get the current username
+  //Get the current username.
+  //Returns the username else `null` if some really bad shit happened.
 	public static String getUsername()
 	{
 		IO.sendCommand(connection.getOutputStream(), "GET_USERNAME");
@@ -24,7 +25,10 @@ public class libsuix
     IO.sendCommand(connection.getOutputStream(),username);
   }
 
-  //Send the given message `message`. Returns {WIP}
+  //Send the given message `message`.
+  //Returns "MESSAGE_SENT" on successful sending of message.
+  //"MESSAGE_SEND_FAILED" if not successful.
+  //And if some really bad shit happened then `null`.
   public static String sendMessage(String message)
   {
     IO.sendCommand(connection.getOutputStream(),"SEND_MESSAGE");
