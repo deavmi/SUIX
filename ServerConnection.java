@@ -213,7 +213,9 @@ public class ServerConnection extends Thread {
 				}
 				else if(command.equals("LIST_CHANNELS"))
 				{
+					//Get all the channels
 					Channel[] channels = listChannels();
+					
 					//Send the amount of channels to the user so he knows how many of
 					//my messages are channels
 					IO.sendCommand(outStream, channels.length);
