@@ -1,5 +1,7 @@
 import java.net.Socket;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.op.InputStream;
 
 public class suixy_chat
 {
