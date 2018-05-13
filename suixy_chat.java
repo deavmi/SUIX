@@ -62,7 +62,7 @@ public class suixy_chat
 		}
 		catch(IOException err)
 		{
-			out("Error: " + err.getMessage());
+			suixy.out("Error: " + err.getMessage());
 		}
 	}
 
