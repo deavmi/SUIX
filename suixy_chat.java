@@ -13,7 +13,7 @@ public class suixy_chat
 
 			//Setup input and output streams
 			InputStream inStream = socket.getInputStream();
-			OutputStream outSream = socket.getOutputStream();
+			OutputStream outStream = socket.getOutputStream();
 
 			String command = "";
 			boolean running = true;
