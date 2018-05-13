@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.net.Socket;
 
-//Library for holding all the client commands and shit
+//Library for holding all the client commands and shit {WIP}
 
 public class libsuix
 {
@@ -23,5 +23,16 @@ public class libsuix
     IO.sendCommand(connection.getOutputStream(),"SET_USERNAME");
     IO.sendCommand(connection.getOutputStream(),username);
   }
+
+  //Send the given message `message`. Returns {WIP}
+  public static String sendMessage(String message)
+  {
+    IO.sendCommand(connection.getOutputStream(),"SEND_MESSAGE");
+    IO.sendCommand(connection.getOutputStream(),message);
+    String errorReturn = IO.readCommand(connection.getInputStream());
+    return errorReturn;
+  }
+
+
 
 }

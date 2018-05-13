@@ -5,17 +5,37 @@ import java.io.OutputStream;
 
 public class ServerConnection extends Thread {
 
+	//All connections
+
+
+	//Socket to the client host
 	private Socket sock;
+
+	//The Sopcket's InputStream
 	private InputStream inStream;
+
+	//The Socket's OutputStream
 	private OutputStream outStream;
+
+
 
 	//The channel we are currently in
 	private String channel = null;
 
-
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 	We will use this uniqeness provided by the hashcode.*/
 	private String username = ""+this.hashCode();
+
+
+	//Returns the username asociated with this user
+	public String getUsername()
+	{
+		return username;
+	}
+
+
+
+
 
 	public void setUsername(String username)
 	{
@@ -52,7 +72,7 @@ public class ServerConnection extends Thread {
 	//Send a message to the current channel
 	public void sendMessage(String message)
 	{
-		
+
 		output("message : \"" + message+ "\"");
 
 		//we good?
@@ -113,17 +133,19 @@ public class ServerConnection extends Thread {
 		}
 	}
 
-	
 
+
+	//Setup routines
 	public void setup()
 	{
 		// Setup the input and output streams
 		setupStreams();
 	}
 
-	
 
 
+
+	//This thread's main routine
 	public void run()
 	{
 		//TODO: Add a welcome statement
@@ -133,9 +155,9 @@ public class ServerConnection extends Thread {
 		//Run setup routines
 		setup();
 
-		
+
 		String command = "";
-			boolean running = true;
+		boolean running = true;
 		while (running)
 		{
 			// Read from the client

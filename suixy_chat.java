@@ -41,9 +41,7 @@ public class suixy_chat
 				//Anything else is a message
 				else
 				{
-					IO.sendCommand(connection.getOutputStream(),"SEND_MESSAGE");
-					IO.sendCommand(connection.getOutputStream(),command);
-					String errorReturn = IO.readCommand(connection.getInputStream());
+					String errorReturn = libsuix.sendMessage(command);
 					if(errorReturn.equals("MESSAGE_SENT"))
 					{
 						//message has been sent then
