@@ -1,21 +1,27 @@
 import java.io.IOException;
 import java.net.Socket;
 
+//Library for holding all the client commands and shit
+
 public class libsuix
 {
-  //Connect to the remote host and return a connection object or `null` if failed
-    public static ClientConnection newConnection(String IPAddress, int port)
-    {
-      ClientConnection connection = null;
-        try
-        {
-          Socket socket = new Socket(IPAddress, port);
-          connection = new ClientConnection(socket);
-        }
-        catch (IOException err)
-        {
-          System.out.println("Error with connecting to server");
-        }
-        return connection;
-    }
+
+  //Socket to the host server
+  public static Socket connection;
+
+  //Get the current username
+	public static String getUsername()
+	{
+		IO.sendCommand(connection.getOutputStream(), "GET_USERNAME");
+		String username = IO.readCommand(connection.getInputStream());
+		return username;
+	}
+
+  //Set the username
+  public static void setUsername(String username)
+  {
+    IO.sendCommand(connection.getOutputStream(),"SET_USERNAME");
+    IO.sendCommand(connection.getOutputStream(),username);
+  }
+
 }
