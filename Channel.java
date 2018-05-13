@@ -1,6 +1,6 @@
 //Represents a channel
 
-public class channel
+public class Channel
 {
 
   //The channel's name
