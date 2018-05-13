@@ -50,10 +50,10 @@ public class ServerConnection extends Thread {
 	}
 
 	//Join a channel
-	public void joinChannel(String channelName)
+	public void joinChannel(Channel channel)
 	{
 		output("Joining channel \"" + channelName + "\"");
-		channel = channelName;
+		this.channel = channel;
 		output("Joined channel \"" + channelName + "\"");
 	}
 
@@ -193,8 +193,10 @@ public class ServerConnection extends Thread {
 					//Leave the current channel
 					leaveChannel();
 
+					Channel channelToJoin = new Channel(userRequestedChannel, "tbd"); //FIXME: assigned to @deavmi
+
 					//Join the requested channel
-					joinChannel(userRequestedChannel);
+					joinChannel(channelToJoin);
 				}
 				else if(command.equals("LEAVE_CHANNEL"))
 				{
