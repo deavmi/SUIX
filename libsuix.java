@@ -1,5 +1,5 @@
-import java.io.IOException;
-import java.net.Socket;
+import java.io.OutputStream;
+import java.io.InputStream;
 
 //Library for holding all the client commands and shit {WIP}
 
