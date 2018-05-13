@@ -26,9 +26,12 @@ public class suixy_chat
 
 			//Get the username
 			String username = libsuix.getUsername();
+			//Get the channel
+			String channel = libsuix.getChannel();
+
 			while(running)
 			{
-				System.out.print("["+username+"]>>> ");
+				System.out.print("["+username+"/"+channel+"]>>> ");
 				command = IO.readCommand(System.in);
 
 				if(command.equals("quit"))

@@ -22,6 +22,17 @@ public class libsuix
 		return username;
 	}
 
+  //Get the current channel.
+  //Returns the username else `null` if some really bad shit happened.
+	public static String getChannel()
+	{
+		IO.sendCommand(outStream, "GET_CHANNEL");
+		String channel = IO.readCommand(inStream);
+		return channel;
+	}
+
+
+
   //Set the username
   public static void setUsername(String username)
   {
