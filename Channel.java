@@ -15,6 +15,12 @@ public class channel
     this.channelDescription = channelDescription;
   }
 
+  //Returns the name of the channel
+  public String getChannelName()
+  {
+    return channelName;
+  }
+
   //Override the toString method with the channel's name
   public String toString()
   {

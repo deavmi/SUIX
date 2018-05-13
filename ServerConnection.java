@@ -84,9 +84,9 @@ public class ServerConnection extends Thread {
 	}
 
 	//Lists all the channels on this server
-	public String[] listChannels()
+	public Channel[] listChannels()
 	{
-		String[] channels = null;
+		Channel[] channels = null;
 		//Work in progress @deavmi
 		return channels;
 	}
@@ -210,6 +210,19 @@ public class ServerConnection extends Thread {
 					String message = IO.readCommand(inStream);
 					output("Ello naai: "+message);
 					sendMessage(message);
+				}
+				else if(command.equals("LIST_CHANNELS"))
+				{
+					Channel[] channels = listChannels();
+					//Send the amount of channels to the user so he knows how many of
+					//my messages are channels
+					IO.sendCommand(outStream, channels.length);
+
+					//Now send the channel names to him
+					for(Channel channel: channels)
+					{
+						IO.sendCommand(outStream, channel.getChannelName());
+					}
 				}
 				else
 				{
