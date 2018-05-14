@@ -46,9 +46,9 @@ public class ServerConnection extends Thread {
 	}
 
 	//Send the given message `message` to the given channel `channel`
-	private void broadcastToChannel(Channel channel, Message message)
+	private void broadcastToChannel(Message message)
 	{
-		output("Broadcasting to channel \"" + channel.getChannelName() + "\"...");
+		output("Broadcasting to channel \"" + message.getChannL().channel.getChannelName() + "\"...");
 		//
 		output("");
 	}
@@ -74,7 +74,7 @@ public class ServerConnection extends Thread {
 		output("message : \"" + message+ "\"");
 
 		//Broadcast the message to the given channel
-		broadcastToChannel(channel, message);
+		broadcastToChannel(message);
 
 		//we good?
 		IO.sendCommand(outStream, "MESSAGE_SENT");

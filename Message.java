@@ -13,4 +13,9 @@ public class Message
     this.messageText = messageText;
     this.channel = channel;
   }
+
+  public Channel getChannel()
+  {
+    return channel;
+  }
 }
