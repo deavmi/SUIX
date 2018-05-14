@@ -20,4 +20,10 @@ public class Message
   {
     return channel;
   }
+
+  //Overrides the toString method to return the message's text
+  public String toString()
+  {
+    return messageText;
+  }
 }
