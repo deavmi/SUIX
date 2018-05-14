@@ -55,7 +55,7 @@ public class ServerConnection extends Thread
 		for(ServerConnection connection: server.connections.getArray())
 		{
 			output("Broadcasting message to \"" + connection + "\"...");
-			IO.sendCommand(connection.getOutputStream();
+			connection.receiveMessage(message); //add to miss self (@deavmi)
 			output("Broadcast sent");
 		}
 	}
