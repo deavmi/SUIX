@@ -176,8 +176,6 @@ public class ServerConnection extends Thread {
 					//Set the current channel (and leave the other WIP)
 					String userRequestedChannel = IO.readCommand(inStream);
 
-					//Leave the current channel
-					leaveChannel();
 
 					Channel channelToJoin = new Channel(userRequestedChannel, "tbd"); //FIXME: assigned to @deavmi
 
