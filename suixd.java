@@ -1,6 +1,8 @@
 public class suixd
 {
 
+	public static final String VERSION = "0.0.1 fokkin' alpha";
+
 	public static void main(String[] args)
 	{
 		if (args.length < 2)

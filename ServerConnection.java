@@ -173,12 +173,15 @@ public class ServerConnection extends Thread
 
 		//Debugging
 		out("Joining default channel... [done]");
+		out("Setup is taking place... [done]");
 	}
 
 	//This thread's main routine
 	public void run()
 	{
 		//TODO: Add a welcome statement
+		//Announce server version to the client
+		//IO.sendCommand(outStream, suixd.VERSION);
 
 		out("New Connection object created");
 
@@ -259,6 +262,12 @@ public class ServerConnection extends Thread
 					Channel channel = new Channel(channelForMessage, "wip");
 					Message message = new Message(channel, messageText);
 					sendMessage(message);
+				}
+				else if(command.equals("VERSION"))
+				{
+					out("Sending version number to client...");
+					IO.sendCommand(outStream, suixd.VERSION);
+					out("Version number sent.");
 				}
 				else if(command.equals("LIST_CHANNELS"))
 				{
