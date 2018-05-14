@@ -19,6 +19,15 @@ public class ServerConnection extends Thread
 	//Channels we are currently in
 	private Channel channels = {new Channel("welcome","default channel")};
 
+	//Soon to be deprecated data structure
+	private DynamicArray<Channel> channels = new DynamicArray<Channnel>(0);
+
+	//Join the default or welcoming channel
+	private void joinDefaultChannel()
+	{
+		channels.append(new Channel("welcome","idk")); //FIXME: idk and how channels descriptions are going to work
+	}
+
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 	We will use this uniqeness provided by the hashcode.*/
 	private String username = ""+this.hashCode();
@@ -78,7 +87,7 @@ public class ServerConnection extends Thread
 	}
 
 	//Join a channel
-	public void joinChannel(Channel channel)
+	private void joinChannel(Channel channel)
 	{
 		output("Joining channel \"" + channel.getChannelName() + "\"");
 		this.channel = channel;
@@ -148,8 +157,19 @@ public class ServerConnection extends Thread
 	//Setup routines
 	public void setup()
 	{
+		//Debugging
+		output("Setup is taking place...");
+		output("Setting up streams...")
+
 		// Setup the input and output streams
 		setupStreams();
+
+		//Output
+		output("Setting up streams... [done]");
+		output("Joining default channel...");
+		joinDefaultChannel();
+		output("Joining default channel... [done]");
+
 	}
 
 
