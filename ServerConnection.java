@@ -74,7 +74,7 @@ public class ServerConnection extends Thread
 		IO.sendCommand(message.getChannel().getChannelName());
 
 		//Provide the actual message text to the user
-		IO.sendCommand(message.getMessageText())
+		IO.sendCommand(message.getMessageText());
 	}
 
 	//Join a channel
