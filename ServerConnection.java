@@ -49,13 +49,17 @@ public class ServerConnection extends Thread
 		//Debugging
 		output("Broadcasting to channel \"" + message.getChannel().channel.getChannelName() + "\"...");
 
-
-
 		//Iterate over each connection and send each user on the given channel the new message
 		for(ServerConnection connection: server.connections.getArray())
 		{
 			output("Broadcasting message to \"" + connection + "\"...");
-			connection.receiveMessage(message); //add to miss self (@deavmi)
+
+			//Skip myself
+			if(connection != this)
+			{
+				connection.receiveMessage(message); //add to miss self (@deavmi)
+			}
+
 			output("Broadcast sent");
 		}
 	}
