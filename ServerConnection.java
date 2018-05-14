@@ -217,8 +217,14 @@ public class ServerConnection extends Thread {
 				}
 				else if(command.equals("SEND_MESSAGE"))
 				{
-					String message = IO.readCommand(inStream);
-					output("Ello naai: "+message);
+					//Get the channel of which to send the message to
+					String channelForMessage = IO.readCommand(inStream);
+					//Get the message's text
+					String messageText = IO.readCommand(inStream);
+					output("Ello naai: "+messageText);
+
+					Channel channel = new Channel(channelForMessage, "wip");
+					Message message = new Message(channel, messageText);
 					sendMessage(message);
 				}
 				else if(command.equals("LIST_CHANNELS"))
