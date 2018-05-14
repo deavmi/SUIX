@@ -6,7 +6,7 @@ public class server
 {
 
 
-public static ServerConnection[] connections;
+  public static ServerConnection[] connections;
 
   public static void startServer(int port, int max_user)
   {
