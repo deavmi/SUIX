@@ -12,7 +12,7 @@ public class server
   {
 	PrettyPrint.out("server", "Starting server on port " + port + " ...");
 
-    connections= new ServerConnection[max_user];
+    connections = new ServerConnection[max_user];
 
     try
     {
