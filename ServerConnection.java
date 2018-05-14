@@ -7,7 +7,7 @@ public class ServerConnection extends Thread
 {
 
 	//Socket to the client host
-	private Socket sock;
+	private Socket socket;
 
 	//The Sopcket's InputStream
 	private InputStream inStream;
@@ -38,8 +38,8 @@ public class ServerConnection extends Thread
 		this.username = username;
 	}
 
-	public ServerConnection(Socket sock) {
-		this.sock = sock;
+	public ServerConnection(Socket socket) {
+		this.socket = socket;
 		start();
 	}
 
