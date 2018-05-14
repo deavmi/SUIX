@@ -31,6 +31,7 @@ public class server
         //Create a new `ServerConnection` which represents a connection
         ServerConnection connection = new ServerConnection(clientSock);
 
+        //Append the `ServerConnection` object to the array
         connections.append(connection);
 
         PrettyPrint.out("server", "Connection object created.");
