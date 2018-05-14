@@ -68,7 +68,10 @@ public class ServerConnection extends Thread {
 		IO.sendCommand("RECEIVED_MESSAGE");
 
 		//Tell the user the channel the message originated from
-		IO.sendCommand(message.);
+		IO.sendCommand(message.getChannel().getChannelName());
+
+		//Provide the actual message text to the user
+		IO.sendCommand(message.getMessageText())
 	}
 
 	//Join a channel

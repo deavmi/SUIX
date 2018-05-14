@@ -21,6 +21,11 @@ public class Message
     return channel;
   }
 
+  public String getMessageText()
+  {
+    return messageText;
+  }
+
   //Overrides the toString method to return the message's text
   public String toString()
   {
