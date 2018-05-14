@@ -46,12 +46,13 @@ public class ServerConnection extends Thread
 	//Send the given message `message` to the given channel `channel`
 	private void broadcastToChannel(Message message)
 	{
+		//Debugging
 		output("Broadcasting to channel \"" + message.getChannel().channel.getChannelName() + "\"...");
-		//
-		output("");
+
+
 
 		//Iterate over each connection and send each user on the given channel the new message
-		for(ServerConnection connection: server.connections)
+		for(ServerConnection connection: server.connections.getArray())
 		{
 			output("Broadcasting message to \"" + connection + "\"...");
 			IO.sendCommand(connection.getOutputStream();

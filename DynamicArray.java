@@ -55,4 +55,10 @@ public class DynamicArray<Type>
     return (Type)data[index];
   }
 
+  //Get an array of all the data
+  public Type getArray()
+  {
+    return (Type)data;
+  }
+
 }
