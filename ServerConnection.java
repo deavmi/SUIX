@@ -164,12 +164,15 @@ public class ServerConnection extends Thread
 		// Setup the input and output streams
 		setupStreams();
 
-		//Output
+		//Debugging
 		output("Setting up streams... [done]");
 		output("Joining default channel...");
-		joinDefaultChannel();
-		output("Joining default channel... [done]");
 
+		//Join the default channel (a.k.a. the `welcome` channel)
+		joinDefaultChannel();
+
+		//Debugging
+		output("Joining default channel... [done]");
 	}
 
 
