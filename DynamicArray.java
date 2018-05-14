@@ -1,9 +1,44 @@
-public class DynamicArray
+public class DynamicArray<Type>
 {
 
-  public DynamicArray()
+  //All the data
+  Object data;
+
+  public DynamicArray(int size)
   {
-    
+    //Create a new array of the given size `size`
+    data = new Object[size];
+  }
+
+  private void expandAndAppend(Type element)
+  {
+    //New array of size n+1 (where n is `data`'s size')
+    Object newData = new Object[data.length+1];
+
+    //Copy all the data from the array referenced by `data` to the
+    //array referenced by `newData`
+    for(int i = 0; i < data.length; i++)
+    {
+      newData[i] = data[i];
+    }
+
+    //Append the new element
+    newData[data.length] = element;
+
+    //Update the refernce held by `data` to now point to the array refrenced by `newData`
+    data = newData;
+  }
+
+  //Append a new element to the array
+  public void append(Type element)
+  {
+    expandAndAppend(element);
+  }
+
+  //Get an element at index `index`
+  public Type get(int index)
+  {
+    return (Type)data[index];
   }
 
 }

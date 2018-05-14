@@ -5,21 +5,20 @@ import java.net.Socket;
 public class server
 {
 
-
-  public static ServerConnection[] connections;
+  //All connections
+  public static DynamicArray<ServerConnection> connections;
 
   public static void startServer(int port, int max_user)
   {
 	PrettyPrint.out("server", "Starting server on port " + port + " ...");
 
-    connections = new ServerConnection[max_user];
+    connections = new DynamicArray<ServerConnection>(0);
 
     try
     {
       // The server socket
       ServerSocket servSock = new ServerSocket(port);
 
-      int connectionCount = 0;
       while (true)
       {
         PrettyPrint.out("server", "Waiting for a connection...");
@@ -29,9 +28,10 @@ public class server
 
         PrettyPrint.out("server", "Connection received, setting up data structures...");
 
+        //Create a new `ServerConnection` which represents a connection
         ServerConnection connection = new ServerConnection(clientSock);
 
-        connections[connectionCount++] = connection;
+        connections.append(connection);
 
         PrettyPrint.out("server", "Connection object created.");
       }
