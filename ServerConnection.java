@@ -184,15 +184,6 @@ public class ServerConnection extends Thread {
 					//Join the requested channel
 					joinChannel(channelToJoin);
 				}
-				//Get the channel the user currently resides in
-				else if(command.equals("GET_CHANNEL"))
-				{
-					//The channel the user currently resides in's name
-					String channelName = channel.getChannelName();
-
-					//Send the channel's name to the user
-					IO.sendCommand(outStream,channelName);
-				}
 				else if(command.equals("LEAVE_CHANNEL"))
 				{
 					//Get the channel the user is requesting to leave
