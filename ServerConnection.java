@@ -3,10 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ServerConnection extends Thread {
-
-	//All connections
-
+public class ServerConnection extends Thread
+{
 
 	//Socket to the client host
 	private Socket sock;

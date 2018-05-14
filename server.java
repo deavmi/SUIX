@@ -8,7 +8,7 @@ public class server
   //All connections
   public static DynamicArray<ServerConnection> connections;
 
-  public static void startServer(int port, int max_user)
+  public static void startServer(int port)
   {
 	PrettyPrint.out("server", "Starting server on port " + port + " ...");
 
