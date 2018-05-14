@@ -42,8 +42,8 @@ public class ServerConnection extends Thread
 	//Set the userame
 	private void setUsername(String username)
 	{
-		output("User attempting to change username");
-		output("Username has been updated from \"" + this.username + "\" to \"" + username + "\"");
+		out("User attempting to change username");
+		out("Username has been updated from \"" + this.username + "\" to \"" + username + "\"");
 		this.username = username;
 	}
 
@@ -56,12 +56,12 @@ public class ServerConnection extends Thread
 	private void broadcastToChannel(Message message)
 	{
 		//Debugging
-		output("Broadcasting to channel \"" + message.getChannel().channel.getChannelName() + "\"...");
+		out("Broadcasting to channel \"" + message.getChannel().channel.getChannelName() + "\"...");
 
 		//Iterate over each connection and send each user on the given channel the new message
 		for(ServerConnection connection: server.connections.getArray())
 		{
-			output("Broadcasting message to \"" + connection + "\"...");
+			out("Broadcasting message to \"" + connection + "\"...");
 
 			//Skip myself
 			if(connection != this)
@@ -69,7 +69,7 @@ public class ServerConnection extends Thread
 				connection.receiveMessage(message); //add to miss self (@deavmi)
 			}
 
-			output("Broadcast sent");
+			out("Broadcast sent");
 		}
 	}
 
@@ -89,9 +89,9 @@ public class ServerConnection extends Thread
 	//Join a channel
 	private void joinChannel(Channel channel)
 	{
-		output("Joining channel \"" + channel.getChannelName() + "\"");
+		out("Joining channel \"" + channel.getChannelName() + "\"");
 		this.channel = channel;
-		output("Joined channel \"" + channel.getChannelName() + "\"");
+		out("Joined channel \"" + channel.getChannelName() + "\"");
 	}
 
 	//Whether the user is joined to a channel or not
@@ -104,7 +104,7 @@ public class ServerConnection extends Thread
 	public void sendMessage(Message message)
 	{
 
-		output("message : \"" + message+ "\"");
+		out("message : \"" + message+ "\"");
 
 		//Broadcast the message to the given channel
 		broadcastToChannel(message);
@@ -124,55 +124,55 @@ public class ServerConnection extends Thread
 	//Leave channel `channel`
 	public void leaveChannel(Channel channel)
 	{
-		output("Leaving channel \"" + channel.getChannelName() + "\"");
+		out("Leaving channel \"" + channel.getChannelName() + "\"");
 		//WIP: Assigned to @deavmi
 		//Send a message to the current channel when leaving
 
 		//Leave the channel
 		//WIP
 
-		output("Left channel \"" + channel.getChannelName() + "\"");
+		out("Left channel \"" + channel.getChannelName() + "\"");
 	}
 
 	public void setupStreams()
 	{
-		output("Setting up streams...");
+		out("Setting up streams...");
 		try
 		{
-			output("Setting up input stream...");
+			out("Setting up input stream...");
 			inStream = sock.getInputStream();
-			output("Input stream has been setup.");
+			out("Input stream has been setup.");
 
-			output("Setting up output stream...");
+			out("Setting up output stream...");
 			outStream = sock.getOutputStream();
-			output("Output stream has been setup.");
+			out("Output stream has been setup.");
 		}
 		catch (IOException err)
 		{
-			output("Error setting up stream: " + err.getMessage());
+			out("Error setting up stream: " + err.getMessage());
 		}
-		output("Streams setup.");
+		out("Streams setup.");
 	}
 
 	//Setup routines
 	public void setup()
 	{
 		//Debugging
-		output("Setup is taking place...");
-		output("Setting up streams...")
+		out("Setup is taking place...");
+		out("Setting up streams...")
 
 		// Setup the input and output streams
 		setupStreams();
 
 		//Debugging
-		output("Setting up streams... [done]");
-		output("Joining default channel...");
+		out("Setting up streams... [done]");
+		out("Joining default channel...");
 
 		//Join the default channel (a.k.a. the `welcome` channel)
 		joinDefaultChannel();
 
 		//Debugging
-		output("Joining default channel... [done]");
+		out("Joining default channel... [done]");
 	}
 
 	//This thread's main routine
@@ -180,7 +180,7 @@ public class ServerConnection extends Thread
 	{
 		//TODO: Add a welcome statement
 
-		output("New Connection object created");
+		out("New Connection object created");
 
 		//Run setup routines
 		setup();
@@ -196,14 +196,14 @@ public class ServerConnection extends Thread
 			//If there was an error whilst reading from the stream
 			if(command == null)
 			{
-				output("There was an error with the client, terminating...");
+				out("There was an error with the client, terminating...");
 				running = false;
 				continue;
 			}
 			//Else, we continue interpreting the commands
 			else
 			{
-				output("command recieved: \"" + command + "\"");
+				out("command recieved: \"" + command + "\"");
 				//If the command is to set the currently logged in user's username
 				if(command.equals("SET_USERNAME"))
 				{
@@ -254,7 +254,7 @@ public class ServerConnection extends Thread
 					String channelForMessage = IO.readCommand(inStream);
 					//Get the message's text
 					String messageText = IO.readCommand(inStream);
-					output("Ello naai: "+messageText);
+					out("Ello naai: "+messageText);
 
 					Channel channel = new Channel(channelForMessage, "wip");
 					Message message = new Message(channel, messageText);
@@ -277,15 +277,15 @@ public class ServerConnection extends Thread
 				}
 				else
 				{
-					output("Invalid command \""+command + "\"");
+					out("Invalid command \""+command + "\"");
 				}
 			}
 		}
-		output("Connection object thread ending");
+		out("Connection object thread ending");
 	}
 
 	//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
-	public void output(String message)
+	public void out(String message)
 	{
 		PrettyPrint.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}
