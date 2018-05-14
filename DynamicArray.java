@@ -14,11 +14,15 @@ public class DynamicArray<Type>
     //Create a new array of the given size `size`
     data = new Object[size];
 
+    //Debugging
     out("Dynamic array of size \"" + size + "\" created.");
   }
 
   private void expandAndAppend(Type element)
   {
+    //debugging
+    out("Expansion occurring from size \"" + data.length + "\" top size \"" + (data.length+1) + "\"...");
+
     //New array of size n+1 (where n is `data`'s size')
     Object newData = new Object[data.length+1];
 
@@ -32,8 +36,11 @@ public class DynamicArray<Type>
     //Append the new element
     newData[data.length] = element;
 
-    //Update the refernce held by `data` to now point to the array refrenced by `newData`
+    //Update the reference held by `data` to now point to the array refrenced by `newData`
     data = newData;
+
+    //Debugging
+    out("Expansion finshed.");
   }
 
   //Append a new element to the array
