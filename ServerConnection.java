@@ -67,8 +67,8 @@ public class ServerConnection extends Thread {
 		return channels.length != 0;
 	}
 
-	//Send a message `message` to the channel `channel`
-	public void sendMessage(Channel channel, Message message)
+	//Send a message `message` to the channel specified
+	public void sendMessage(Message message)
 	{
 
 		output("message : \"" + message+ "\"");
