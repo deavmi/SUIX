@@ -175,9 +175,6 @@ public class ServerConnection extends Thread
 		output("Joining default channel... [done]");
 	}
 
-
-
-
 	//This thread's main routine
 	public void run()
 	{
