@@ -18,9 +18,8 @@ public class ServerConnection extends Thread {
 	private OutputStream outStream;
 
 
-
-	//The channel we are currently in (default: #welcome)
-	private Channel channel = new Channel("welcome", "default channel");
+	//Channels we are currently in
+	private Channel channels = {new Channel("welcome","default channel")};
 
 	/*The username should be unique and since our objects are we can use that as a default SET_USERNAME.
 	We will use this uniqeness provided by the hashcode.*/
@@ -33,11 +32,8 @@ public class ServerConnection extends Thread {
 		return username;
 	}
 
-
-
-
-
-	public void setUsername(String username)
+	//Set the userame
+	private void setUsername(String username)
 	{
 		output("User attempting to change username");
 		output("Username has been updated from \"" + this.username + "\" to \"" + username + "\"");
@@ -47,6 +43,14 @@ public class ServerConnection extends Thread {
 	public ServerConnection(Socket sock) {
 		this.sock = sock;
 		start();
+	}
+
+	//Send the given message `message` to the given channel `channel`
+	private void broadcastToChannel(Channel channel, Message message)
+	{
+		output("Broadcasting to channel \"" + channel.getChannelName() + "\"...");
+		//
+		output("");
 	}
 
 	//Join a channel
@@ -60,20 +64,17 @@ public class ServerConnection extends Thread {
 	//Whether the user is joined to a channel or not
 	public boolean isJoinedChannel()
 	{
-		return channel != null;
+		return channels.length != 0;
 	}
 
-	//Get the current channel
-	public Channel getChannel()
-	{
-		return channel;
-	}
-
-	//Send a message to the current channel
-	public void sendMessage(String message)
+	//Send a message `message` to the channel `channel`
+	public void sendMessage(Channel channel, Message message)
 	{
 
 		output("message : \"" + message+ "\"");
+
+		//Broadcast the message to the given channel
+		broadcastToChannel(channel, message);
 
 		//we good?
 		IO.sendCommand(outStream, "MESSAGE_SENT");
@@ -87,17 +88,17 @@ public class ServerConnection extends Thread {
 		return channels;
 	}
 
-	//Leave a channel
-	public void leaveChannel()
+	//Leave channel `channel`
+	public void leaveChannel(Channel channel)
 	{
-		output("Leaving channel \"" + channel + "\"");
+		output("Leaving channel \"" + channel.getChannelName() + "\"");
 		//WIP: Assigned to @deavmi
 		//Send a message to the current channel when leaving
 
 		//Leave the channel
-		channel = null;
+		//WIP
 
-		output("Left channel \"" + channel + "\"");
+		output("Left channel \"" + channel.getChannelName() + "\"");
 	}
 
 	public void setupStreams()
@@ -119,21 +120,6 @@ public class ServerConnection extends Thread {
 		}
 		output("Streams setup.");
 	}
-
-	// Is the byte a Linefeed
-	public boolean isLineFeed(byte charCode)
-	{
-		if (charCode == 10)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
 
 	//Setup routines
 	public void setup()
@@ -209,8 +195,25 @@ public class ServerConnection extends Thread {
 				}
 				else if(command.equals("LEAVE_CHANNEL"))
 				{
-					//Leave the current channel
-					leaveChannel();
+					//Get the channel the user is requesting to leave
+					String channelToLeave = IO.readCommand(inStream);
+
+					//First check if it is possible
+					boolean isPossible = true;//WIP
+
+					if(isPossible)
+					{
+						//Leave the channel
+						leaveChannel(new Channel(channelToLeave,"idk"));
+
+						//Send a response saying the leave was successful
+						IO.sendCommand(outStream, "LEAVE_SUCCESS");
+					}
+					else
+					{
+						//Send a response saying the leave was unsucccessful
+						IO.sendCommand(outStream, "LEAVE_ERROR");
+					}
 				}
 				else if(command.equals("SEND_MESSAGE"))
 				{
