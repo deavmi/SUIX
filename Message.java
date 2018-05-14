@@ -8,12 +8,14 @@ public class Message
   //The channel to which the message is to be sent to
   private Channel channel;
 
+  //Constructor for a new Message object
   public Message(Channel channel, String messageText)
   {
-    this.messageText = messageText;
     this.channel = channel;
+    this.messageText = messageText;
   }
 
+  //Returns the channel this message is to be sent to
   public Channel getChannel()
   {
     return channel;
