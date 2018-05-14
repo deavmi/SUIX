@@ -4,10 +4,17 @@ public class DynamicArray<Type>
   //All the data
   Object data;
 
+  private void out(String message)
+  {
+    kak.out("DynamicArray", message)
+  }
+
   public DynamicArray(int size)
   {
     //Create a new array of the given size `size`
     data = new Object[size];
+
+    out("Dynamic array of size \"" + size + "\" created.");
   }
 
   private void expandAndAppend(Type element)
