@@ -56,9 +56,9 @@ public class DynamicArray<Type>
   }
 
   //Get an array of all the data
-  public Type getArray()
+  public Type[] getArray()
   {
-    return (Type)data;
+    return (Type[])data;
   }
 
 }
