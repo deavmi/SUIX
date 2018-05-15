@@ -117,8 +117,6 @@ public class ServerConnection extends Thread
 	public Channel[] listChannels()
 	{
 		return channels.getArray();
-		//Work in progress @deavmi
-		return channels;
 	}
 
 	//Leave channel `channel`
