@@ -166,6 +166,19 @@ public class ServerConnection extends Thread
 		out("Streams setup.");
 	}
 
+	//Checks whether you are joined to the channel `channel` or not
+	public boolean isJoinedToChannel(Channel channelToLeave)
+	{
+		for(Channel channel: channnels.getArray())
+		{
+			if(channel.getChannelName().equals(channelToLeave.getChannelName()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	//Setup routines
 	public void setup()
 	{
@@ -244,10 +257,10 @@ public class ServerConnection extends Thread
 				else if(command.equals("LEAVE_CHANNEL"))
 				{
 					//Get the channel the user is requesting to leave
-					String channelToLeave = IO.readCommand(inStream);
+					Channel channel = new Channel(IO.readCommand(inStream),"WIP");
 
 					//First check if it is possible
-					boolean isPossible = true;//WIP
+					boolean isPossible = isJoinedToChannel(channel)
 
 					if(isPossible)
 					{
