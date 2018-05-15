@@ -275,23 +275,22 @@ public class ServerConnection extends Thread
 					Message message = new Message(channel, messageText);
 					sendMessage(message);
 				}
+				//Get the server's version number
 				else if(command.equals("VERSION"))
 				{
 					out("Sending version number to client...");
 					IO.sendCommand(outStream, suixd.VERSION);
 					out("Version number sent.");
 				}
+				//List all the channels the user is joined to
 				else if(command.equals("LIST_CHANNELS"))
 				{
-					//Get all the channels
-					Channel[] channels = listChannels();
-
 					//Send the amount of channels to the user so he knows how many of
 					//my messages are channels
-					IO.sendCommand(outStream, ""+channels.length);
+					IO.sendCommand(outStream, ""+channels.getArray().length);
 
 					//Now send the channel names to him
-					for(Channel channel: channels)
+					for(Channel channel: channels.getArray())
 					{
 						IO.sendCommand(outStream, channel.getChannelName());
 					}
