@@ -61,4 +61,10 @@ public class DynamicArray<Type>
     return (Type[])data;
   }
 
+  //Remove an element at the given index `index`
+  public void remove(int index)
+  {
+    
+  }
+
 }
