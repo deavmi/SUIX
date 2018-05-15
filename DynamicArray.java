@@ -64,7 +64,27 @@ public class DynamicArray<Type>
   //Remove an element at the given index `index`
   public void remove(int index)
   {
-    Object[]
+    Object[] newData = new Object[data.length-1];
+
+    //Index count
+    int indexPointer = 0;
+
+    //Iterate over the array and add all elemnets from `data` to `newData` besides the one at index `index`
+    for(int i = 0; i < data.length; i++)
+    {
+      if(i == index)
+      {
+        //Do nothing
+      }
+      else
+      {
+        newData[indexPointer] = data[i];
+        indexPointer++;
+      }
+    }
+
+    //Update the reference held by `data` to point to a new object pointed to the object that is referenced by `newData`
+    data = newData;
   }
 
 }
