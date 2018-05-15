@@ -122,13 +122,27 @@ public class ServerConnection extends Thread
 	//Leave channel `channel`
 	public void leaveChannel(Channel channel)
 	{
+		//Debugging
 		out("Leaving channel \"" + channel.getChannelName() + "\"");
-		//WIP: Assigned to @deavmi
+
 		//Send a message to the current channel when leaving
+		//WP: @assigned to deavmi
 
-		//Leave the channel
-		//WIP
+		//Find the channel to remove
+		int channelPos = 0;
+		for(int i = 0; i < channels.getArray().length; i++)
+		{
+			if(channels.getArray()[i].getChannelName().equals(channel.getChannelName()))
+			{
+			  channelPos = i;
+				break;
+			}
+		}
 
+		//Remove the channel
+		channels.remove(channelPos);
+
+		//Debugging
 		out("Left channel \"" + channel.getChannelName() + "\"");
 	}
 
