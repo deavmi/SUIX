@@ -24,7 +24,7 @@ public class DynamicArray<Type>
     out("Expansion occurring from size \"" + data.length + "\" top size \"" + (data.length+1) + "\"...");
 
     //New array of size n+1 (where n is `data`'s size')
-    Object newData = new Object[data.length+1];
+    Object[] newData = new Object[data.length+1];
 
     //Copy all the data from the array referenced by `data` to the
     //array referenced by `newData`
@@ -64,7 +64,7 @@ public class DynamicArray<Type>
   //Remove an element at the given index `index`
   public void remove(int index)
   {
-    
+    Object[]
   }
 
 }
