@@ -318,7 +318,8 @@ public class ServerConnection extends Thread
 	}
 
 	//Output text to the `stdout` file descriptor (a.k.a. the terminal screen) with a useful debugging information
-	public void out(String message)
+	//Output with pretty print and this module's name (FIXME: @deavmi)
+	private void out(String message)
 	{
 		PrettyPrint.out("Connection (" +username +")","[LA: " + sock.getLocalAddress() + ", LP: " + sock.getLocalPort() + ", RA: " + sock.getInetAddress() + ", RP: " + sock.getPort() + "]: " + message);
 	}

@@ -3,11 +3,17 @@ public class suixd
 
 	public static final String VERSION = "0.0.1 fokkin' alpha";
 
+	//Output with pretty print and this module's name
+	private static void out(String message)
+	{
+		PrettyPrint.out("suixd", message)
+	}
+
 	public static void main(String[] args)
 	{
 		if (args.length < 2)
 		{
-			PrettyPrint.out("suixd","Needs a port number argument and a max user number argument");
+			out("Needs a port number argument and a max user number argument");
 		}
 		else
 		{
@@ -17,7 +23,7 @@ public class suixd
 			}
 			catch (NumberFormatException err)
 			{
-				PrettyPrint.out("suixd","A valid port number and max user number is required");
+				out("A valid port number and max user number is required");
 			}
 		}
 	}

@@ -8,9 +8,15 @@ public class server
   //All connections
   public static DynamicArray<ServerConnection> connections;
 
+  //Output with pretty print and this module's name
+  private static void out(String message)
+  {
+    PrettyPrint.out("server", message)
+  }
+
   public static void startServer(int port)
   {
-	PrettyPrint.out("server", "Starting server on port " + port + " ...");
+	  out("Starting server on port " + port + " ...");
 
     connections = new DynamicArray<ServerConnection>(0);
 
@@ -21,12 +27,12 @@ public class server
 
       while (true)
       {
-        PrettyPrint.out("server", "Waiting for a connection...");
+        out("Waiting for a connection...");
 
         // Incoming client socket
         Socket clientSock = servSock.accept();
 
-        PrettyPrint.out("server", "Connection received, setting up data structures...");
+        out("Connection received, setting up data structures...");
 
         //Create a new `ServerConnection` which represents a connection
         ServerConnection connection = new ServerConnection(clientSock);
@@ -34,14 +40,13 @@ public class server
         //Append the `ServerConnection` object to the array
         connections.append(connection);
 
-        PrettyPrint.out("server", "Connection object created.");
+        out("Connection object created.");
       }
 
     }
     catch (IOException err)
     {
-      PrettyPrint.out("server", "There was an error with the server socket.");
-
+      out("There was an error with the server socket.");
     }
   }
 
